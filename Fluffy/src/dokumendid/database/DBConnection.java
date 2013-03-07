@@ -9,8 +9,18 @@ import java.util.ResourceBundle;
 
 public class DBConnection {
 
-	public DBConnection() {}
+	/*
+	 * Constructor
+	 */
+	public DBConnection() {
+	}
 
+	/**
+	 * Connects to database using properties defined in
+	 * WebContent/WEB-INF/classes/DBConnection.properties
+	 * 
+	 * @return Connection
+	 */
 	public static Connection getConnection() {
 		Connection db_connection = null;
 		String pwd = "";
@@ -32,11 +42,16 @@ public class DBConnection {
 		return db_connection;
 	}
 
-	public static void close(final Connection conn) {
+	/**
+	 * Closes the connection
+	 * 
+	 * @param connection
+	 */
+	public static void close(final Connection connection) {
 
-		if (conn != null) {
+		if (connection != null) {
 			try {
-				conn.close();
+				connection.close();
 			} catch (SQLException ex) {
 				System.out.println("dbconnection.close()" + ex.getMessage());
 			}
@@ -44,22 +59,29 @@ public class DBConnection {
 
 	}
 
-	public static void closeStatement(final Statement stmt) {
-		if (stmt != null) {
+	/**
+	 * 
+	 * @param statement
+	 */
+	public static void closeStatement(final Statement statement) {
+		if (statement != null) {
 			try {
-				stmt.close();
+				statement.close();
 			} catch (SQLException ex) {
 				System.out.println("dbconnection.closeStatement()"
 						+ ex.getMessage());
 			}
 		}
-
 	}
 
-	public static void closeResultSet(final ResultSet rs) {
-		if (rs != null) {
+	/**
+	 * 
+	 * @param resultSet
+	 */
+	public static void closeResultSet(final ResultSet resultSet) {
+		if (resultSet != null) {
 			try {
-				rs.close();
+				resultSet.close();
 			} catch (SQLException ex) {
 				System.out.println("dbconnection.closeResult()"
 						+ ex.getMessage());

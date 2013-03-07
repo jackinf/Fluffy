@@ -9,25 +9,29 @@ import dokumendid.models.DocumentModel;
 
 public class DocumentController {
 
+	/*
+	 * Declarations
+	 */
+
 	private DBQuery dbquery = new DBQuery();
-	
+
 	/**
 	 * Used to get all the document types from database
+	 * 
 	 * @return - list of document types in JSON string
 	 */
-	public JSONObject getAllDocumentTypes()
-	{
+	public JSONObject getAllDocumentTypes() {
 		return encodeDocumentsIntoJSON(dbquery.GetAllDocuments());
 	}
-	
+
 	/**
 	 * Encodes list into JSON object
+	 * 
 	 * @param items
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject encodeDocumentsIntoJSON(ArrayList<DocumentModel> items)
-	{
+	private JSONObject encodeDocumentsIntoJSON(ArrayList<DocumentModel> items) {
 		JSONObject prepared = new JSONObject();
 		for (DocumentModel item : items) {
 			JSONObject aDocument = new JSONObject();
@@ -38,5 +42,5 @@ public class DocumentController {
 		}
 		return prepared;
 	}
-	
+
 }

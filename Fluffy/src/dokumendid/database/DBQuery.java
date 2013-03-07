@@ -1,7 +1,6 @@
 package dokumendid.database;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,11 +9,11 @@ import dokumendid.database.DBConnection;
 import dokumendid.models.DocumentModel;
 
 public class DBQuery {
-	
+
 	private Connection myConnection;
 	private ResultSet resultSet;
 	private Statement statement;
-	private PreparedStatement preparedStatement;
+	private String sql;
 
 	/**
 	 * Query to get all the documents
@@ -23,7 +22,6 @@ public class DBQuery {
 	 */
 	public ArrayList<DocumentModel> GetAllDocuments() {
 		ArrayList<DocumentModel> documents = new ArrayList<DocumentModel>();
-		String sql = "";
 
 		try {
 			myConnection = DBConnection.getConnection();
@@ -41,9 +39,8 @@ public class DBQuery {
 		}
 
 		catch (Exception ex) {
-			System.out
-					.println("JSP_servlet_bean/ttu.idu0200.db.ArchiveDocDB.getDocsFromDB(String doc_nr):"
-							+ ex.getMessage());
+			System.out.println("dokumendid.database.DBQuery.GetAllDocuments():"
+					+ ex.getMessage());
 
 		} finally {
 			DBConnection.closeStatement(statement);
@@ -56,33 +53,30 @@ public class DBQuery {
 
 	/**
 	 * Method which validates login and password
+	 * 
 	 * @param username
 	 * @param password
 	 * @return - true, if correct username and password combination.
 	 */
 	public boolean Login(String username, String password) {
 		boolean result = false;
-		String sql = "";
-		
+
 		try {
 			myConnection = DBConnection.getConnection();
-			
 			statement = myConnection.createStatement();
-			sql = "SELECT * FROM f_isCorrectLogin('" + username + "', '" + password + "')";
-			//preparedStatement = myConnection.prepareStatement("SELECT * FORM f_isCorrectLogin(?, ?)");
-			//preparedStatement.setString(1, username);
-			//preparedStatement.setString(2, password);
+			sql = "SELECT * FROM f_isCorrectLogin('" + username + "', '"
+					+ password + "')";
 			resultSet = statement.executeQuery(sql);
 			if (resultSet.next()) {
 				result = resultSet.getBoolean("f_isCorrectLogin");
 			}
-			
+
 			myConnection.close();
 		}
 
 		catch (Exception ex) {
 			System.out
-					.println("JSP_servlet_bean/ttu.idu0200.db.ArchiveDocDB.getDocsFromDB(String doc_nr):"
+					.println("dokumendid.database.DBQuery.Login(String username, String password):"
 							+ ex.getMessage());
 
 		} finally {
@@ -90,7 +84,7 @@ public class DBQuery {
 			DBConnection.closeResultSet(resultSet);
 			DBConnection.close(myConnection);
 		}
-		
+
 		return result;
 	}
 

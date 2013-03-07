@@ -1,5 +1,5 @@
 package dokumendid.models;
 
-public class EmployeeModel extends PersonModel{
+public class EmployeeModel extends PersonModel {
 
 }
