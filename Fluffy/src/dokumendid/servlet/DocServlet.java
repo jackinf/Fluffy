@@ -2,13 +2,21 @@ package dokumendid.servlet;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import dokumendid.controllers.DocumentController;
+import dokumendid.controllers.FrontController;
+
 import java.io.*;
 import java.util.*;
 
 @SuppressWarnings("serial")
 public class DocServlet extends HttpServlet {
 
-	public void init() {}
+	private FrontController frontController;
+	
+	public void init() {
+		frontController = new FrontController();
+	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -26,6 +34,7 @@ public class DocServlet extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<p>Dokumendid (from servlet)</p><button>" + ButtonText + "</button>");
+		out.println("<p>Informatsioon andmebaasist: " + frontController.getDocumentController().getAllDocumentTypes() + " </p>");
 		out.println("</body>");
 		out.println("</html>");
 	}
