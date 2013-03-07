@@ -34,6 +34,8 @@ public class DocServlet extends HttpServlet {
 		out.println("<body>");
 		out.println("<p>Dokumendid (from servlet)</p><button>" + ButtonText + "</button>");
 		out.println("<p>Informatsioon andmebaasist: " + TableDrawer.DrawDocumentTable(frontController.getDocumentController().getAllDocumentTypes()) + " </p>");
+		out.println("<p>Username: juhan<br />Password: juhan<br />Is it correct: " + frontController.getPersonController().Login("juhan", "juhan") + "</p>");
+		out.println("<p>Username: juhan<br />Password: tanel<br />Is it correct: " + frontController.getPersonController().Login("juhan", "tanel") + "</p>");
 		out.println("</body>");
 		out.println("</html>");
 	}
