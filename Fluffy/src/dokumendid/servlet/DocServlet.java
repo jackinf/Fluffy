@@ -2,12 +2,10 @@ package dokumendid.servlet;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-
-import dokumendid.controllers.DocumentController;
-import dokumendid.controllers.FrontController;
-
 import java.io.*;
 import java.util.*;
+
+import dokumendid.controllers.FrontController;
 
 @SuppressWarnings("serial")
 public class DocServlet extends HttpServlet {

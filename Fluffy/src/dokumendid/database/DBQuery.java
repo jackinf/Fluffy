@@ -5,25 +5,29 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import dokumendid.models.dbconnection;
+import dokumendid.database.DBConnection;
+import dokumendid.models.DocumentModel;
 
 public class DBQuery {
 
-	public ArrayList<String> TestDatabase() {
-		ArrayList<String> items = new ArrayList<String>();;
+	public ArrayList<DocumentModel> GetAllDocuments() {
+		ArrayList<DocumentModel> documents = new ArrayList<DocumentModel>();
 		String sql = "";
 		Connection myConnection = null;
 		ResultSet DokHulk = null;
 		Statement statement = null;
-		
+
 		try {
-			myConnection = dbconnection.getConnection();
+			myConnection = DBConnection.getConnection();
 			statement = myConnection.createStatement();
-			sql = "select * from doc_type";
+			sql = "SELECT * FROM document INNER JOIN doc_type ON doc_status_type_fk = doc_type";
 			DokHulk = statement.executeQuery(sql);
-			while (DokHulk.next())
-			{
-				items.add(DokHulk.getString("type_name"));
+			while (DokHulk.next()) {
+				DocumentModel document = new DocumentModel();
+				document.setName(DokHulk.getString("name"));
+				document.setDescription(DokHulk.getString("description"));
+				document.setDocumentType(DokHulk.getString("type_name"));
+				documents.add(document);
 			}
 			myConnection.close();
 		}
@@ -34,12 +38,12 @@ public class DBQuery {
 							+ ex.getMessage());
 
 		} finally {
-			dbconnection.closeStatement(statement);
-			dbconnection.closeResultSet(DokHulk);
-			dbconnection.close(myConnection);
+			DBConnection.closeStatement(statement);
+			DBConnection.closeResultSet(DokHulk);
+			DBConnection.close(myConnection);
 		}
 
-		return items;
+		return documents;
 	}
-	
+
 }

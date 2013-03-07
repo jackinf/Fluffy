@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.simple.JSONObject;
 
 import dokumendid.database.DBQuery;
+import dokumendid.models.DocumentModel;
 
 public class DocumentController {
 
@@ -16,7 +17,7 @@ public class DocumentController {
 	 */
 	public String getAllDocumentTypes()
 	{
-		return encodeList(dbquery.TestDatabase()).toJSONString();
+		return encodeDocumentsIntoJSON(dbquery.GetAllDocuments()).toJSONString();
 	}
 	
 	/**
@@ -25,11 +26,16 @@ public class DocumentController {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject encodeList(ArrayList<String> items)
+	private JSONObject encodeDocumentsIntoJSON(ArrayList<DocumentModel> items)
 	{
 		JSONObject prepared = new JSONObject();
-		for (String item : items)
-			prepared.put(items.indexOf(item), item);
+		for (DocumentModel item : items) {
+			JSONObject aDocument = new JSONObject();
+			aDocument.put("name", item.getName());
+			aDocument.put("description", item.getDescription());
+			aDocument.put("type", item.getDocumentType());
+			prepared.put(items.indexOf(item), aDocument);
+		}
 		return prepared;
 	}
 	
