@@ -15,9 +15,9 @@ public class DocumentController {
 	 * Used to get all the document types from database
 	 * @return - list of document types in JSON string
 	 */
-	public String getAllDocumentTypes()
+	public JSONObject getAllDocumentTypes()
 	{
-		return encodeDocumentsIntoJSON(dbquery.GetAllDocuments()).toJSONString();
+		return encodeDocumentsIntoJSON(dbquery.GetAllDocuments());
 	}
 	
 	/**

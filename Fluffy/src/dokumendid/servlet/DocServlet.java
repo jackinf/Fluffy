@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.*;
 
 import dokumendid.controllers.FrontController;
+import dokumendid.helpers.TableDrawer;
 
 @SuppressWarnings("serial")
 public class DocServlet extends HttpServlet {
@@ -32,7 +33,7 @@ public class DocServlet extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<p>Dokumendid (from servlet)</p><button>" + ButtonText + "</button>");
-		out.println("<p>Informatsioon andmebaasist: " + frontController.getDocumentController().getAllDocumentTypes() + " </p>");
+		out.println("<p>Informatsioon andmebaasist: " + TableDrawer.DrawDocumentTable(frontController.getDocumentController().getAllDocumentTypes()) + " </p>");
 		out.println("</body>");
 		out.println("</html>");
 	}
