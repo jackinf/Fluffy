@@ -60,6 +60,9 @@ public class DocServlet extends HttpServlet {
 		out.println("<p>Username: juhan<br />Password: tanel<br />Is it correct: "
 				+ frontController.getPersonController().Login("juhan", "tanel")
 				+ "</p>");
+		
+		// Tree test: gets JSON tree structure of documents
+		out.println("<p>Tree: " + frontController.getTreeController().GetWholeTree() + "</p>");
 		out.println("</body>");
 		out.println("</html>");
 	}

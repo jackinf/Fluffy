@@ -7,8 +7,13 @@ import java.util.ArrayList;
 
 import dokumendid.database.DBConnection;
 import dokumendid.models.DocumentModel;
+import dokumendid.models.CategoryModel;
 
 public class DBQuery {
+
+	/*
+	 * Declarations
+	 */
 
 	private Connection myConnection;
 	private ResultSet resultSet;
@@ -86,6 +91,47 @@ public class DBQuery {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Builds tree by documents' categories
+	 * 
+	 * @return
+	 */
+	public ArrayList<CategoryModel> GetWholeTree() {
+		ArrayList<CategoryModel> categories = new ArrayList<CategoryModel>();
+
+		try {
+			myConnection = DBConnection.getConnection();
+			statement = myConnection.createStatement();
+			sql = "SELECT doc_catalog, name, level, upper_catalog_fk FROM doc_catalog ORDER BY upper_catalog_fk, doc_catalog ASC";
+			resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				CategoryModel category = new CategoryModel();
+				category.setCategoryID(resultSet.getInt("doc_catalog"));
+				category.setCatalogName(resultSet.getString("name"));
+				category.setLevel(resultSet.getInt("level"));
+				Integer parentID = resultSet.getInt("upper_catalog_fk");
+
+				// If the category has a parent then it finds the parent and
+				// remembers it.
+				if (parentID >= 1) {
+					for (CategoryModel item : categories) {
+						if (item.getCategoryID() == parentID) {
+							category.setParent(item);
+							break;
+						}
+					}
+				}
+
+				categories.add(category);
+			}
+		} catch (Exception ex) {
+			System.out.println("dokumendid.database.DBQuery.GetWholeTree():"
+					+ ex.getMessage());
+		}
+
+		return categories;
 	}
 
 }

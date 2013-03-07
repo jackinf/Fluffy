@@ -8,6 +8,7 @@ public class FrontController {
 
 	private DocumentController _documentController;
 	private PersonController _personController;
+	private TreeController _treeController;
 
 	/*
 	 * Constructor
@@ -16,6 +17,7 @@ public class FrontController {
 	public FrontController() {
 		_documentController = new DocumentController();
 		_personController = new PersonController();
+		_treeController = new TreeController();
 	}
 
 	/*
@@ -28,6 +30,10 @@ public class FrontController {
 
 	public PersonController getPersonController() {
 		return _personController;
+	}
+	
+	public TreeController getTreeController() {
+		return _treeController;
 	}
 
 }

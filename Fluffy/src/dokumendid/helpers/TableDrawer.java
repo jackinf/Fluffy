@@ -27,11 +27,11 @@ public class TableDrawer {
 			}
 		} catch (Exception ex) {
 			System.out
-					.println("Error drawing table at dokumendid.helpers.TableDrawer.DrawDocumentTable");
+					.println("Error drawing table at dokumendid.helpers.TableDrawer.DrawDocumentTable()");
 		}
 
 		outputTable += "</table>";
 		return outputTable;
 	}
-
+	
 }
